@@ -1,26 +1,27 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import ProjectCard from './components/Project';
-import SocialButton from './components/SocialButton';
-import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ProjectCard from "./components/Project";
+import SocialButton from "./components/SocialButton";
+import ContactForm from "./components/ContactForm";
+import "./App.css";
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   // Ambil tema dari localStorage saat awal render
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme');
+    const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
       setTheme(storedTheme);
-      document.documentElement.setAttribute('data-theme', storedTheme);
+      document.documentElement.setAttribute("data-theme", storedTheme);
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
   };
 
   return (
@@ -28,18 +29,16 @@ function App() {
       <div className="min-h-screen flex flex-col items-center justify-center p-6 gap-6 bg-base-200">
         {/* Navigasi */}
         <nav className="flex justify-center gap-4 mb-6">
-          <Link className="btn btn-sm btn-outline" to="/">Home</Link>
-          <Link className="btn btn-sm btn-outline" to="/projects">Projects</Link>
-          <Link className="btn btn-sm btn-outline" to="/contact">Contact</Link>
+          <Link className="btn btn-sm btn-outline" to="/">
+            Home
+          </Link>
+          <Link className="btn btn-sm btn-outline" to="/projects">
+            Projects
+          </Link>
+          <Link className="btn btn-sm btn-outline" to="/contact">
+            Contact
+          </Link>
         </nav>
-
-        {/* Tombol Toggle Tema */}
-        <button
-          onClick={toggleTheme}
-          className="btn btn-outline mb-4 transition transform duration-200 ease-in-out hover:-translate-y-1 active:translate-y-1 active:scale-95 shadow-md hover:shadow-xl"
-        >
-          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
 
         {/* Routes */}
         <Routes>
@@ -89,7 +88,7 @@ function App() {
           <Route
             path="/projects"
             element={
-              <div className="grid gap-4 w-full max-w-md mx-auto">
+              <div className="grid gap-4 w-full max-w-md mx-auto ">
                 <ProjectCard
                   title="Todo App"
                   description="A simple todo list with CRUD functionality."
@@ -105,22 +104,16 @@ function App() {
           />
 
           {/* Contact */}
-          <Route
-            path="/contact"
-            element={
-              <div className="text-center space-y-4">
-                <h2 className="text-xl font-semibold">Contact Me</h2>
-                <p className="text-sm text-gray-500">Feel free to reach out via email or social media.</p>
-                <form className="flex flex-col gap-2 w-full max-w-xs mx-auto">
-                  <input type="text" placeholder="Your Name" className="input input-bordered" />
-                  <input type="email" placeholder="Your Email" className="input input-bordered" />
-                  <textarea placeholder="Your Message" className="textarea textarea-bordered"></textarea>
-                  <button type="submit" className="btn btn-primary">Send</button>
-                </form>
-              </div>
-            }
-          />
+          <Route path="/contact" element={<ContactForm />} />
         </Routes>
+
+        {/* Tombol Toggle Tema di Bawah */}
+        <button
+          onClick={toggleTheme}
+          className="btn btn-outline mb-4 transition transform duration-200 ease-in-out hover:-translate-y-1 active:translate-y-1 active:scale-95 shadow-md hover:shadow-xl"
+        >
+          Toggle {theme === "light" ? "Dark" : "Light"} Mode
+        </button>
       </div>
     </Router>
   );
