@@ -6,7 +6,7 @@ function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    const name = e.target.name;
+    const name = e.target.name; 
     const value = e.target.value;
     setForm({ ...form, [name]: value });
   };
