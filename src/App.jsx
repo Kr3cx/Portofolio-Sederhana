@@ -68,22 +68,22 @@ function App() {
                     platform="GitHub"
                     url="https://github.com/Kr3cx"
                     buttonColor="warning"
-                    className="w-full"
-                    logoUrl="https://img.icons8.com/ios_filled/512/github.png" // URL logo GitHub
+                    className="w-full btn-warning"
+                    logoUrl="https://img.icons8.com/ios_filled/512/github.png"
                   />
                   <SocialButton
                     platform="LinkedIn"
                     url="https://id.linkedin.com/in/mohammad-kresna-a14987344"
                     buttonColor="info"
-                    className="w-full"
-                    logoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/960px-LinkedIn_logo_initials.png" // URL logo LinkedIn
+                    className="w-full btn-info"
+                    logoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/960px-LinkedIn_logo_initials.png"
                   />
                   <SocialButton
                     platform="Twitter"
                     url="https://twitter.com/"
                     buttonColor="primary"
                     className="w-full"
-                    logoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/X_logo.jpg/1200px-X_logo.jpg" // URL logo Twitter
+                    logoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/X_logo.jpg/1200px-X_logo.jpg"
                   />
                 </div>
               </div>
@@ -96,9 +96,9 @@ function App() {
             element={
               <div className="grid gap-4 w-full max-w-md mx-auto ">
                 <ProjectCard
-                  title="Todo App"
-                  description="A simple todo list with CRUD functionality."
-                  link="https://github.com/"
+                  title="Website ElMovie.site"
+                  description="Website Menampilkan Mvoie Terbaru."
+                  link="https://elmovie.site/"
                 />
                 <ProjectCard
                   title="Portfolio Website"
