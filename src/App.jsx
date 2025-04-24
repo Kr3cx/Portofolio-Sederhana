@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ProjectCard from "./components/Project";
 import SocialButton from "./components/SocialButton";
 import ContactForm from "./components/ContactForm";
+import TextCursor from "./TextCursor/TextCursor";
 import "./App.css";
 
 function App() {
@@ -40,7 +41,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Efek ketik nama
   // Efek ketik nama berkali-kali setiap 2 detik
   useEffect(() => {
     let typingInterval;
@@ -72,7 +72,19 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 gap-6 bg-base-200">
+      <div className="relative w-full h-screen flex flex-col items-center justify-center p-6 gap-6 bg-base-200">
+        {/* TextCursor yang muncul di seluruh halaman */}
+        <TextCursor
+          text="🐔"
+          delay={0.01}
+          spacing={80}
+          followMouseDirection={true}
+          randomFloat={true}
+          exitDuration={0.3}
+          removalInterval={20}
+          maxPoints={10}
+        />
+
         {/* Navigasi */}
         <nav className="flex justify-center gap-4 mb-6">
           <Link className="btn btn-sm btn-outline" to="/">
