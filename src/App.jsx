@@ -7,8 +7,15 @@ import "./App.css";
 
 function App() {
   const [theme, setTheme] = useState("light");
+  const avatars = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9FkeUinz1H6FKD_99u-Qxvis3Ghfy42UWA&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsrv_9SF1dtsRs6ttjZwNLVM-6vKxte2QzXQ&s",
+  ];
+  const [avatarIndex, setAvatarIndex] = useState(0);
 
-  // Ambil tema dari localStorage saat awal render
+  const fullName = "Mohammad Kresna";
+  const [typedName, setTypedName] = useState("");
+
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
@@ -17,12 +24,51 @@ function App() {
     }
   }, []);
 
+  // Toggle tema
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
   };
+
+  // Animasi avatar berganti tiap 1 detik
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAvatarIndex((prevIndex) => (prevIndex + 1) % avatars.length);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Efek ketik nama
+  // Efek ketik nama berkali-kali setiap 2 detik
+  useEffect(() => {
+    let typingInterval;
+    let cycleTimeout;
+    let currentIndex = 0;
+
+    const typeEffect = () => {
+      typingInterval = setInterval(() => {
+        if (currentIndex <= fullName.length) {
+          setTypedName(fullName.substring(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+          cycleTimeout = setTimeout(() => {
+            currentIndex = 0;
+            typeEffect(); // ulang efek ketik
+          }, 2000); // jeda 2 detik sebelum ulangi
+        }
+      }, 150);
+    };
+
+    typeEffect();
+
+    return () => {
+      clearInterval(typingInterval);
+      clearTimeout(cycleTimeout);
+    };
+  }, []);
 
   return (
     <Router>
@@ -48,18 +94,21 @@ function App() {
             element={
               <div className="flex flex-col items-center gap-6">
                 <div className="avatar">
-                  <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 transition duration-300 hover:ring-yellow-400 hover:shadow-lg hover:shadow-yellow-400">
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9FkeUinz1H6FKD_99u-Qxvis3Ghfy42UWA&s"
+                      src={avatars[avatarIndex]}
                       alt="avatar"
+                      className="transition duration-500 ease-in-out"
                     />
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <h1 className="text-2xl font-bold">Mohammad Kresna</h1>
+                  <h1 className="text-2xl font-bold font-mono whitespace-nowrap border-r-2 border-primary pr-2 animate-pulse">
+                    {typedName}
+                  </h1>
                   <p className="text-sm max-w-xs">
-                    Frontend Developer | React JS, Next JS
+                    Cyber Security | Blue Team & Red Team
                   </p>
                 </div>
 
@@ -94,10 +143,10 @@ function App() {
           <Route
             path="/projects"
             element={
-              <div className="grid gap-4 w-full max-w-md mx-auto ">
+              <div className="grid gap-4 w-full max-w-md mx-auto">
                 <ProjectCard
                   title="Website ElMovie.site"
-                  description="Website Menampilkan Mvoie Terbaru."
+                  description="Website Menampilkan Informasi Terkait Film."
                   link="https://elmovie.site/"
                 />
                 <ProjectCard
@@ -113,7 +162,7 @@ function App() {
           <Route path="/contact" element={<ContactForm />} />
         </Routes>
 
-        {/* Tombol Toggle Tema di Bawah */}
+        {/* Toggle Tema */}
         <button
           onClick={toggleTheme}
           className="btn btn-outline mb-4 transition transform duration-200 ease-in-out hover:-translate-y-1 active:translate-y-1 active:scale-95 shadow-md hover:shadow-xl"
